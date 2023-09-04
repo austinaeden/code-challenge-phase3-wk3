@@ -17,6 +17,17 @@ class Customer(Base):
     first_name = Column(String)
     last_name  =Column ( String )
 
+class Restaurant (Base):
+    __tablename__='restaurant'
+    res_id = Column(Integer, Sequence('res_id_seq'), primary_key=True)
+    res_name = Column(String)
+    res_price = Column(Integer)
+
+class Review (Base):
+    __tablename__='review'
+    rev_id = Column(Integer, Sequence('rev_id_seq'), primary_key=True)
+    cus_id = Column(Integer, ForeignKey('customer.cus_id'))
+    res_id = Column(Integer, ForeignKey('restaurant.res_id'))
 
 # creating all the tables
 Base.metadata.create_all(bind=engine)
