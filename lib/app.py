@@ -26,6 +26,7 @@ class Restaurant (Base):
 class Review (Base):
     __tablename__='review'
     rev_id = Column(Integer, Sequence('rev_id_seq'), primary_key=True)
+    star_rating=Column(Integer)
     cus_id = Column(Integer, ForeignKey('customer.cus_id'))
     res_id = Column(Integer, ForeignKey('restaurant.res_id'))
 
