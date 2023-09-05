@@ -17,11 +17,17 @@ class Customer(Base):
     first_name = Column(String)
     last_name  =Column ( String )
 
+    reviews = relationship("Review", back_populates="customer")
+    restaurants=relationship("Review",back_populates="customer",overlaps="reviews")
+
 class Restaurant (Base):
     __tablename__='restaurant'
     res_id = Column(Integer, Sequence('res_id_seq'), primary_key=True)
     res_name = Column(String)
     res_price = Column(Integer)
+
+    reviews = relationship("Review", back_populates="restaurant")
+
 
 class Review (Base):
     __tablename__='review'
@@ -29,6 +35,9 @@ class Review (Base):
     star_rating=Column(Integer)
     cus_id = Column(Integer, ForeignKey('customer.cus_id'))
     res_id = Column(Integer, ForeignKey('restaurant.res_id'))
+
+    restaurant = relationship("Restaurant", back_populates="reviews")
+    customer = relationship("Customer", back_populates="reviews")
 
 
 # create session
